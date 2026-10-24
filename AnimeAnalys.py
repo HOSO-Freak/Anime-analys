@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 #Наш датасет (в виде словаря)
 data = {
@@ -49,3 +50,25 @@ df["Минут_всего"] = df["Эпизоды"] * 24
 # Сохраняем в новый файл
 df.to_csv("anime_report.csv", index=False)
 print("\n✅ Отчет успешно сохранен в файл 'anime_report.csv'!")
+
+#Сортировка таблиц по году
+df_sorted_by_year = df.sort_values(by="Год")
+    #Настройка размера окна
+plt.figure(figsize=(10, 6))
+
+    #построение графика
+plt.plot(df_sorted_by_year["Год"], df_sorted_by_year["Рейтинг"], marker='o', linestyle='-', color='purple', linewidth=2)
+
+    #Заголовок и подписи осей
+plt.title("Рейтинг аниме в зависимости от года выпуска", fontsize=14)
+plt.xlabel("Год выхода", fontsize=12)
+plt.ylabel("Рейтинг", fontsize=12)
+
+#Добавление сетки
+plt.grid(True, linestyle='--', alpha=0.7)
+
+#Сохранение графика в файле
+plt.savefig("anime_rating_plot.png")
+
+#Вывод графика
+plt.show()
